@@ -1,5 +1,6 @@
 import tkinter as tk
 import random
+from tkinter.font import Font
 
 
 def new_game():
@@ -8,7 +9,7 @@ def new_game():
     label.config(text=player + " TURN")
     for row in range(3):
         for col in range(3):
-            buttons[row][col].config(text="", bg="#F0F0F0")
+            buttons[row][col].config(text="", bg="grey")
 
 
 def check_free_space():
@@ -53,7 +54,7 @@ def winner():
     elif check_free_space() is False:
         for row in range(3):
             for col in range(3):
-                buttons[row][col].config(bg="red")
+                buttons[row][col].config(bg="yellow")
         return "DRAW !"
     else:
         return False
@@ -86,7 +87,13 @@ root = tk.Tk()
 root.title("Tic Tac Toe")
 players = ['X', 'O']
 player = random.choice(players)
-label = tk.Label(root, text=player + " TURN", font=("bold", 50))
+my_font = Font(
+    family='Times',
+    size=50,
+    weight='bold',
+    slant='roman'
+)
+label = tk.Label(root, text=player + " TURN", font=my_font)
 label.pack()
 buttons = [[0, 0, 0],
            [0, 0, 0],
@@ -95,10 +102,10 @@ border = tk.Frame(root)
 border.pack()
 for row in range(3):
     for col in range(3):
-        buttons[row][col] = tk.Button(border, text="", font=("bold", 30), width=4, height=2, command=lambda row=row, col=col: next_turn(row, col))
+        buttons[row][col] = tk.Button(border, text="", font=my_font, width=4, height=2, bg="grey", command=lambda row=row, col=col: next_turn(row, col))
         buttons[row][col].grid(row=row, column=col)
-restart = tk.Button(root, text="RESTART", font=("bold", 30), command=new_game)
+restart = tk.Button(root, text="RESTART", font=my_font, command=new_game)
 restart.pack()
-quit_game = tk.Button(root, text="QUIT", font=("bold", 30), command=exit)
+quit_game = tk.Button(root, text="QUIT", font=my_font, command=quit_xox)
 quit_game.pack()
 root.mainloop()
